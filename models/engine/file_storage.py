@@ -63,3 +63,9 @@ class FileStorage:
         if obj is not None:
             key = obj.__class__.__name__ + '.' + obj.id
             self.__objects.pop(key, None)
+
+    def close(self):
+        """
+        calls reload for deserilization
+        """
+        self.reload()
