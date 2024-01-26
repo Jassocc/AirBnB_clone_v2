@@ -20,4 +20,4 @@ if env == 'db':
     storage.reload()
 else:
     storage = FileStorage()
-    storage.reload()
+storage.reload()

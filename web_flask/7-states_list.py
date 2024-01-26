@@ -13,7 +13,7 @@ def states_list():
     """
     display html page with states
     """
-    states = storage.all("State").values()
+    states = sorted(storage.all("State").values(), key=lambda state: state.name)
     return render_template('7-states_list.html', states=states)
 
 
