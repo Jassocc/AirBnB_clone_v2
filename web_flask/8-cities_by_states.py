@@ -14,7 +14,7 @@ def states_and_cities():
     """
     display html page with states and cities
     """
-    states = storage.all("State")
+    states = storage.all(State)
     return render_template("8-cities_by_states.html", states=states)
 
 
