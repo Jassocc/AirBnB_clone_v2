@@ -14,7 +14,7 @@ class State(BaseModel, Base):
     __tablename__ = "states"
     name = Column(String(128), nullable=False)
     cities_rel = relationship("City", cascade='all, delete, delete-orphan',
-                          backref="state")
+                              backref="state")
 
     @property
     def cities(self):
@@ -22,5 +22,8 @@ class State(BaseModel, Base):
         def class
         """
         variable = models.storage.all("City")
-        res = [city for city in variable.values() if city.state_id == self.id]
-        return res
+        city_list = []
+        for city in variable.values():
+            if city.state_id == self.id:
+                city_list.append(city)
+        return city_list
