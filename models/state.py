@@ -4,7 +4,7 @@ from models.base_model import BaseModel
 from sqlalchemy import Column, String
 from sqlalchemy.orm import relationship
 import models
-from models.base_model import BaseModel, Base
+from models.base_model import Base
 from models.city import City
 import shlex
 
@@ -13,7 +13,7 @@ class State(BaseModel, Base):
     """ State class """
     __tablename__ = "states"
     name = Column(String(128), nullable=False)
-    cities = relationship("City", cascade='all, delete, delete-orphan',
+    cities_rel = relationship("City", cascade='all, delete, delete-orphan',
                           backref="state")
 
     @property
@@ -21,15 +21,6 @@ class State(BaseModel, Base):
         """
         def class
         """
-        variable = models.storage.all()
-        list_city = []
-        res = []
-        for k in variable:
-            c = k.replace('.', ' ')
-            c = shlex.split(c)
-            if (c[0] == 'City'):
-                list_city.append(variable[k])
-        for var in list_city:
-            if (var.state_id == self.id):
-                res.append(var)
-        return (res)
+        variable = models.storage.all("City")
+        res = [city for city in variable.values() if city.state_id == self.id]
+        return res
