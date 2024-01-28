@@ -1,21 +1,22 @@
 #!/usr/bin/python3
 """
-starts a web application
+display html of airbnb
 """
+from flask import storage
 from flask import Flask, render_template
-from models import storage
 app = Flask(__name__)
 
 
-@app.route("/hbnb_filters", strict_slashes=False)
-def hbnb_filtration():
+@app.route("/hbnb", strict_slashes=False)
+def display_hbnb():
     """
-    dislpay hbnb filter page
+    display hbnb site
     """
     states = storage.all(State)
     amenities = storage.all(Amenity)
-    return render_template("10-hbnb_filters.html", states=states,
-                           amenities=amenities)
+    places = storage.all(Place)
+    return render_template("100-hbnb.html", states=states, amenities=amenities,
+                           places=places)
 
 
 @app.teardown_appcontext
